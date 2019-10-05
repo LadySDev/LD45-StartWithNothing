@@ -1,3 +1,5 @@
+import { Button } from "../utils/button.js";
+
 export class MainMenuScene extends Phaser.Scene {
     constructor() {
         super('MainMenuScene');
@@ -14,14 +16,15 @@ export class MainMenuScene extends Phaser.Scene {
 
     create() {
         let playTranslation = this.translator.getTranslationFor(this, "MainMenuScene","play");
-        let btnPlay = this.addButton(this, 0, 0);
-        let txtPlay = this.add.text(btnPlay.x + btnPlay.width/2, btnPlay.y + 8, playTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
-        txtPlay.setOrigin(0.5, 0.0);
+
+        let btnPlay = new Button(this, 0, 0, 'button', playTranslation, 20, '#ffffff');
 
         let optionsTranslation = this.translator.getTranslationFor(this, "MainMenuScene","options");
-        let btnOptions = this.addButton(this, 0, 38);
-        let txtOptions = this.add.text(btnOptions.x + btnOptions.width/2, btnOptions.y + 8, optionsTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
-        txtOptions.setOrigin(0.5, 0.0);
+
+        let btnOptions = new Button(this, 0, 38, 'button', optionsTranslation, 20, '#ffffff');
+        // let btnOptions = this.addButton(this, 0, 38);
+        // let txtOptions = this.add.text(btnOptions.x + btnOptions.width/2, btnOptions.y + 8, optionsTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
+        // txtOptions.setOrigin(0.5, 0.0);
     }
 
     update(time, delta) {
