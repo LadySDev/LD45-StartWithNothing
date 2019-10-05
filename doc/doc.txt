@@ -1,0 +1,5 @@
+alphabet: opengameart.org
+    name: ASCII Bitmap Font "oldschool"
+    Author: domsson
+    size: 128*64px
+    character size: 5*7px

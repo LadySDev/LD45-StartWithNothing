@@ -1,3 +1,5 @@
+import { ManagerScene } from "./scene/manager.js";
+
 let config = {
     parent: 'divCanvaParent',
     type: Phaser.AUTO,
@@ -9,23 +11,7 @@ let config = {
             gravity: { y: 0 }
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: [ManagerScene]
 };
 
 let game = new Phaser.Game(config);
-
-function preload () {
-    console.log('preload');
-}
-
-function create () {
-    console.log('create');
-}
-
-function update (time, delta) {
-
-}
