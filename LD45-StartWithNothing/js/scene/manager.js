@@ -1,4 +1,5 @@
 import { Translator }  from "../localization/translator.js";
+import { Controls } from "../controls.js";
 import { MainMenuScene }  from "./mainmenu.js";
 
 export class ManagerScene extends Phaser.Scene {
@@ -12,6 +13,8 @@ export class ManagerScene extends Phaser.Scene {
         };
         this.langCode = languages["english"];
         this.translator = new Translator(this);
+
+        this.controls = new Controls();
     }
 
     preload() {
