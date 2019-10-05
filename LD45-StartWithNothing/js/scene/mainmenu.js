@@ -20,6 +20,9 @@ export class MainMenuScene extends Phaser.Scene {
 
         let optionsTranslation = this.translator.getTranslationFor(this, "MainMenuScene","options");
         let btnOptions = new Button(this, 0, 38, 'button', optionsTranslation, 20, '#ffffff');
+        btnOptions.image.on('pointerdown', function(pointer){
+            this.managerScene.startScene(this, 'ControlsMenuScene');
+        }, this);
     }
 
     update(time, delta) {

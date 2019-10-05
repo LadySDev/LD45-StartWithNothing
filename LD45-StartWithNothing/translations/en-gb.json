@@ -2,5 +2,15 @@
     "MainMenuScene": {
         "play": "Play",
         "options": "Options"
+    },
+    "ControlsMenuScene": {
+        "title": "CONTROLS",
+        "moveUp": "Move up",
+        "moveDown": "Move down",
+        "moveLeft": "Move left",
+        "moveRight": "Move right",
+        "inventory": "Inventory",
+        "menu": "Menu",
+        "return": "Return"
     }
 }

@@ -5,6 +5,6 @@ export class Controls {
         this.moveLeftKey = "Q";
         this.moveRightKey = "D";
         this.inventoryKey = "I";
-        this.menuKey = "";
+        this.menuKey = "ESC";
     }
 }

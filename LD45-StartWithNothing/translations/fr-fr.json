@@ -2,5 +2,14 @@
     "MainMenuScene": {
         "play": "Jouer",
         "options": "Options"
+    },
+    "ControlsMenu": {
+        "moveUp": "Aller en haut",
+        "moveDown": "Aller en bas",
+        "moveLeft": "Aller à gauche",
+        "moveRight": "Aller à droite",
+        "inventory": "Inventaire",
+        "menu": "Menu",
+        "return": "Retour"
     }
 }
