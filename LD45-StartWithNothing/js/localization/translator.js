@@ -8,4 +8,15 @@ export class Translator {
         let data = scene.cache.json.get(langCode);
         return data[sceneName][variable];
     }
+
+    getTranslationKey(scene, sceneName, value){
+        let langCode = this.managerScene.langCode;
+        let data = scene.cache.json.get(langCode);
+        for(let key in data[sceneName]){
+            if(data[sceneName][key] === value){
+                return key;
+            }
+        }
+        return null;
+    }
 }

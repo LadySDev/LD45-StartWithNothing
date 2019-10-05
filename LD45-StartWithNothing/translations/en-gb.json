@@ -6,6 +6,9 @@
     "OptionsMenuScene": {
         "title": "OPTIONS",
         "controls": "Controls",
+        "language": "Language",
+        "english": "English",
+        "french": "French",
         "return": "Return"
     },
     "ControlsMenuScene": {
