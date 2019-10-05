@@ -1,6 +1,7 @@
 import { Translator }  from "../localization/translator.js";
 import { Controls } from "../controls.js";
 import { MainMenuScene }  from "./mainmenu.js";
+import { OptionsMenuScene }  from "./optionsmenu.js";
 import { ControlsMenuScene }  from "./controlsmenu.js";
 
 export class ManagerScene extends Phaser.Scene {
@@ -26,6 +27,7 @@ export class ManagerScene extends Phaser.Scene {
 
     create() {
         this.scene.add('MainMenuScene', MainMenuScene, true);
+        this.scene.add('OptionsMenuScene', OptionsMenuScene, false);
         this.scene.add('ControlsMenuScene', ControlsMenuScene, false);
     }
 

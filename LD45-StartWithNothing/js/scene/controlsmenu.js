@@ -99,12 +99,10 @@ export class ControlsMenuScene extends Phaser.Scene {
         }, this);
 
         let returnTranslation = this.translator.getTranslationFor(this, "ControlsMenuScene","return");
-
-        this.btnReturn = new Button(this, widthCenter, colsPosY +190+100, 'button', returnTranslation, 20, '#ffffff');
-        this.btnReturn.image.x = this.btnReturn.image.x - this.btnReturn.image.width/2;
-        this.btnReturn.text.x = this.btnReturn.text.x - this.btnReturn.image.width/2;
+        this.btnReturn = new Button(this, widthCenter, this.game.config.height - 50, 'button', returnTranslation, 20, '#ffffff');
+        this.btnReturn.moveAt(this.btnReturn.image.x - this.btnReturn.image.width/2, this.btnReturn.image.y - this.btnReturn.image.height);
         this.btnReturn.image.on('pointerdown', function(pointer){
-            this.managerScene.startScene(this, 'MainMenuScene');
+            this.managerScene.startScene(this, 'OptionsMenuScene');
         }, this);
 
         this.input.keyboard.on('keydown', function (event) {

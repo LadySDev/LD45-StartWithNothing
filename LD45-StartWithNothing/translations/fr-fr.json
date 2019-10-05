@@ -3,7 +3,13 @@
         "play": "Jouer",
         "options": "Options"
     },
-    "ControlsMenu": {
+    "OptionsMenuScene": {
+        "title": "OPTIONS",
+        "controls": "Contrôles",
+        "return": "Retour"
+    },
+    "ControlsMenuScene": {
+        "title": "CONTROLS",
         "moveUp": "Aller en haut",
         "moveDown": "Aller en bas",
         "moveLeft": "Aller à gauche",

@@ -3,6 +3,11 @@
         "play": "Play",
         "options": "Options"
     },
+    "OptionsMenuScene": {
+        "title": "OPTIONS",
+        "controls": "Controls",
+        "return": "Return"
+    },
     "ControlsMenuScene": {
         "title": "CONTROLS",
         "moveUp": "Move up",
