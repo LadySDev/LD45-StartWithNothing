@@ -3,6 +3,7 @@ import { Controls } from "../controls.js";
 import { MainMenuScene }  from "./mainmenu.js";
 import { OptionsMenuScene }  from "./optionsmenu.js";
 import { ControlsMenuScene }  from "./controlsmenu.js";
+import { GameScene }  from "./game.js";
 
 export class ManagerScene extends Phaser.Scene {
 
@@ -32,6 +33,7 @@ export class ManagerScene extends Phaser.Scene {
         this.scene.add('MainMenuScene', MainMenuScene, true);
         this.scene.add('OptionsMenuScene', OptionsMenuScene, false);
         this.scene.add('ControlsMenuScene', ControlsMenuScene, false);
+        this.scene.add('GameScene', GameScene, false);
     }
 
     update(time, delta) {

@@ -21,6 +21,9 @@ export class MainMenuScene extends Phaser.Scene {
         let playTranslation = this.translator.getTranslationFor(this, "MainMenuScene","play");
         let btnPlay = new Button(this, widthCenter, heightCenter, 'button', playTranslation, 20, '#ffffff');
         btnPlay.moveAt(btnPlay.image.x - btnPlay.image.width/2, btnPlay.image.y - btnPlay.image.height);
+        btnPlay.image.on('pointerdown', function(pointer){
+            this.managerScene.startScene(this, 'GameScene');
+        }, this);
 
         let optionsTranslation = this.translator.getTranslationFor(this, "MainMenuScene","options");
         let btnOptions = new Button(this, btnPlay.image.x, btnPlay.image.y + 38, 'button', optionsTranslation, 20, '#ffffff');
