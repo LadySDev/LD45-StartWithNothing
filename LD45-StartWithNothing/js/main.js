@@ -11,7 +11,8 @@ let config = {
             gravity: { y: 0 }
         }
     },
-    scene: [ManagerScene]
+    scene: [ManagerScene],
+    pixelArt: true
 };
 
 let game = new Phaser.Game(config);

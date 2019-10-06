@@ -3,3 +3,9 @@ alphabet: opengameart.org
     Author: domsson
     size: 128*64px
     character size: 5*7px
+
+audio:
+name: 100 Survival Horror Sound FX Wavs
+author: psionicgames
+on itch.io
+piste: action-squelch06.wav
