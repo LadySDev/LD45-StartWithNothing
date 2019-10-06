@@ -25,6 +25,8 @@ export class ManagerScene extends Phaser.Scene {
         this.load.spritesheet('dropdown', 'asset/dropdown.png', { frameWidth: 132, frameHeight: 38 });
         this.load.spritesheet('dropdownList', 'asset/dropdownList.png', { frameWidth: 132, frameHeight: 38 });
 
+        this.load.spritesheet('player', 'asset/player.png', { frameWidth: 128, frameHeight: 128 });
+
         this.load.json('en-gb', 'translations/en-gb.json');
         this.load.json('fr-fr', 'translations/fr-fr.json');
     }
