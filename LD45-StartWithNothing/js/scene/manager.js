@@ -4,6 +4,7 @@ import { MainMenuScene }  from "./mainmenu.js";
 import { OptionsMenuScene }  from "./optionsmenu.js";
 import { ControlsMenuScene }  from "./controlsmenu.js";
 import { GameScene }  from "./game.js";
+import { PauseScene }  from "./pause.js";
 
 export class ManagerScene extends Phaser.Scene {
 
@@ -36,6 +37,7 @@ export class ManagerScene extends Phaser.Scene {
         this.scene.add('OptionsMenuScene', OptionsMenuScene, false);
         this.scene.add('ControlsMenuScene', ControlsMenuScene, false);
         this.scene.add('GameScene', GameScene, false);
+        this.scene.add('PauseScene', PauseScene, false);
     }
 
     update(time, delta) {
@@ -45,5 +47,21 @@ export class ManagerScene extends Phaser.Scene {
     startScene(scene, sceneToStart){
         scene.scene.start(sceneToStart);
         scene.scene.stop(scene);
+    }
+
+    showPauseScene(scene) {
+        scene.scene.launch('PauseScene');
+        scene.scene.pause('GameScene');
+    }
+
+    hidePauseScene(scene){
+        scene.scene.run('GameScene');
+        scene.scene.stop('PauseScene');
+    }
+
+    quitGameScene(scene){
+        scene.scene.start('MainMenuScene');
+        scene.scene.stop('GameScene');
+        scene.scene.stop('PauseScene');
     }
 }

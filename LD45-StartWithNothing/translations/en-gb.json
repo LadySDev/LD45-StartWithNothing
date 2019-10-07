@@ -20,5 +20,10 @@
         "inventory": "Inventory",
         "menu": "Menu",
         "return": "Return"
+    },
+    "PauseScene": {
+        "title": "PAUSE",
+        "resume": "Resume",
+        "quit": "Quit"
     }
 }

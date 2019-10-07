@@ -117,6 +117,8 @@ export class GameScene extends Phaser.Scene {
         this.moveDownKey = scene.input.keyboard.addKey(this.controls.moveDownKey);
         this.moveLeftKey = scene.input.keyboard.addKey(this.controls.moveLeftKey);
         this.moveRightKey = scene.input.keyboard.addKey(this.controls.moveRightKey);
+
+        this.menuKey = scene.input.keyboard.addKey(this.controls.menuKey);
     }
 
     update(time, delta) {
@@ -159,6 +161,11 @@ export class GameScene extends Phaser.Scene {
 
             this.moves.standBy(this.player.sprite);
         }
+
+        if(this.menuKey.isDown){
+            this.managerScene.showPauseScene(this);
+        }
+
 
     }
 }
