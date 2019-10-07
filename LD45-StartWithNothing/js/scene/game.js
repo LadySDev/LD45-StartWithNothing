@@ -2,6 +2,7 @@ import { Character } from '../utils/character.js';
 import { Moves } from "../utils/moves.js";
 import { DeadTree } from "../utils/deadtree.js";
 import {Hit} from "../utils/hit";
+import {Inventory} from "../utils/inventory";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -114,10 +115,13 @@ export class GameScene extends Phaser.Scene {
 
         this.addControlKeys(this);
 
+        // INVENTORY
+        this.inventory = new Inventory();
+
         // DEAD TREE GENERATION
         this.deadTree1 = new DeadTree(this, 100, 100, 'deadTree', 0);
 
-        this.physics.add.collider(this.player.sprite, this.deadTree1.sprite)
+        this.physics.add.collider(this.player.sprite, this.deadTree1.sprite);
     }
 
     addControlKeys(scene){
