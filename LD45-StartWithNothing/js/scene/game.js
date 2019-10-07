@@ -1,5 +1,7 @@
 import { Character } from '../utils/character.js';
 import { Moves } from "../utils/moves.js";
+import { DeadTree } from "../utils/deadtree.js";
+import {Hit} from "../utils/hit";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -9,6 +11,7 @@ export class GameScene extends Phaser.Scene {
         this.player.setVelocity(100);
 
         this.moves = new Moves();
+        this.hit = new Hit(5);
     }
 
     init(){
@@ -110,6 +113,11 @@ export class GameScene extends Phaser.Scene {
         this.player.setCurrentStateObject('idleDown');
 
         this.addControlKeys(this);
+
+        // DEAD TREE GENERATION
+        this.deadTree1 = new DeadTree(this, 100, 100, 'deadTree', 0);
+
+        this.physics.add.collider(this.player.sprite, this.deadTree1.sprite)
     }
 
     addControlKeys(scene){
@@ -119,9 +127,13 @@ export class GameScene extends Phaser.Scene {
         this.moveRightKey = scene.input.keyboard.addKey(this.controls.moveRightKey);
 
         this.menuKey = scene.input.keyboard.addKey(this.controls.menuKey);
+
+        this.actionKey = scene.input.keyboard.addKey(this.controls.actionKey);
     }
 
     update(time, delta) {
+
+        this.physics.add.overlap(this.player.sprite, this.deadTree1, this.deadTreeCollideAction.bind(this));
 
         if(this.moveUpKey.isDown){
             this.player.setCurrentStateObject('walkUp');
@@ -166,6 +178,14 @@ export class GameScene extends Phaser.Scene {
             this.managerScene.showPauseScene(this);
         }
 
+        if(this.deadTree1.currentHealth === 0){
+            this.deadTree1.destroy();
+        }
+    }
 
+    deadTreeCollideAction(object1, object2){
+        if(Phaser.Input.Keyboard.JustDown(this.actionKey)){
+            object2.hit(this.hit.attackPoint);
+        }
     }
 }

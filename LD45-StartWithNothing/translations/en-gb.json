@@ -17,8 +17,9 @@
         "moveDown": "Move down",
         "moveLeft": "Move left",
         "moveRight": "Move right",
-        "inventory": "Inventory",
         "menu": "Menu",
+        "action": "Action",
+        "inventory": "Inventory",
         "return": "Return"
     },
     "PauseScene": {

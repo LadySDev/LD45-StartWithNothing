@@ -11,6 +11,7 @@ export class Character {
     addSprite(scene, posX, posY, texture, frame) {
         this.sprite = scene.physics.add.sprite(posX, posY, texture, frame);
         this.sprite.setOrigin(0.0, 0.0);
+        this.sprite.setSize(26, 8).setOffset(52, 120);
     }
 
     addStateObject(name, animation, sound) {

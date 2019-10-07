@@ -17,8 +17,9 @@
         "moveDown": "Aller en bas",
         "moveLeft": "Aller à gauche",
         "moveRight": "Aller à droite",
-        "inventory": "Inventaire",
         "menu": "Menu",
+        "action": "Action",
+        "inventory": "Inventaire",
         "return": "Retour"
     },
     "PauseScene": {

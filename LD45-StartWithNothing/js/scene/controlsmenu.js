@@ -14,8 +14,9 @@ export class ControlsMenuScene extends Phaser.Scene {
         this.moveDownKeyIsChanging = false;
         this.moveLeftKeyIsChanging = false;
         this.moveRightKeyIsChanging = false;
-        this.inventoryKeyIsChanging = false;
+        this.actionKeyIsChanging = false;
         this.menuKeyIsChanging = false;
+        this.inventoryKeyIsChanging = false;
     }
 
     preload() {
@@ -40,24 +41,28 @@ export class ControlsMenuScene extends Phaser.Scene {
         this.textMoveUp.setOrigin(1.0, 0.0);
 
         let moveDownTranslation = this.translator.getTranslationFor(this, "ControlsMenuScene","moveDown");
-        this.textMoveDown = this.add.text(leftColPosX, colsPosY +38+8, moveDownTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
+        this.textMoveDown = this.add.text(this.textMoveUp.x, this.textMoveUp.y +38, moveDownTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
         this.textMoveDown.setOrigin(1.0, 0.0);
 
         let moveLeftTranslation = this.translator.getTranslationFor(this, "ControlsMenuScene","moveLeft");
-        this.textMoveLeft = this.add.text(leftColPosX, colsPosY +76+8, moveLeftTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
+        this.textMoveLeft = this.add.text(this.textMoveDown.x, this.textMoveDown.y +38, moveLeftTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
         this.textMoveLeft.setOrigin(1.0, 0.0);
 
         let moveRightTranslation = this.translator.getTranslationFor(this, "ControlsMenuScene","moveRight");
-        this.textMoveRight = this.add.text(leftColPosX, colsPosY +114+8, moveRightTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
+        this.textMoveRight = this.add.text(this.textMoveLeft.x, this.textMoveLeft.y +38, moveRightTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
         this.textMoveRight.setOrigin(1.0, 0.0);
 
-        let inventoryTranslation = this.translator.getTranslationFor(this, "ControlsMenuScene","inventory");
-        this.textInventory = this.add.text(leftColPosX, colsPosY +152+8, inventoryTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
-        this.textInventory.setOrigin(1.0, 0.0);
-
         let menuTranslation = this.translator.getTranslationFor(this, "ControlsMenuScene","menu");
-        this.textMenu = this.add.text(leftColPosX, colsPosY +190+8, menuTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
+        this.textMenu = this.add.text(this.textMoveRight.x, this.textMoveRight.y +38, menuTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
         this.textMenu.setOrigin(1.0, 0.0);
+
+        let actionTranslation  = this.translator.getTranslationFor(this, "ControlsMenuScene","action");
+        this.textAction = this.add.text(this.textMenu.x, this.textMenu.y +38, actionTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
+        this.textAction.setOrigin(1.0, 0.0);
+
+        let inventoryTranslation = this.translator.getTranslationFor(this, "ControlsMenuScene","inventory");
+        this.textInventory = this.add.text(this.textAction.x, this.textAction.y +38, inventoryTranslation, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
+        this.textInventory.setOrigin(1.0, 0.0);
 
         // Right Column
         this.getControlsKey();
@@ -68,41 +73,56 @@ export class ControlsMenuScene extends Phaser.Scene {
             this.moveUpKeyIsChanging = true;
         }, this);
 
-        this.btnMoveDownKey = new Button(this, rightColPosX, colsPosY +38, 'button', this.moveDownKey, 20, '#ffffff');
+        this.btnMoveDownKey = new Button(this, this.btnMoveUpKey.image.x, this.btnMoveUpKey.image.y +38, 'button', this.moveDownKey, 20, '#ffffff');
         this.btnMoveDownKey.image.on('pointerdown', function(pointer){
             this.controls.moveDownKey = "...";
             this.moveDownKeyIsChanging = true;
         }, this);
 
-        this.btnMoveLeftKey = new Button(this, rightColPosX, colsPosY +76, 'button', this.moveLeftKey, 20, '#ffffff');
+        this.btnMoveLeftKey = new Button(this, this.btnMoveDownKey.image.x, this.btnMoveDownKey.image.y +38, 'button', this.moveLeftKey, 20, '#ffffff');
         this.btnMoveLeftKey.image.on('pointerdown', function(pointer){
             this.controls.moveLeftKey = "...";
             this.moveLeftKeyIsChanging = true;
         }, this);
 
-        this.btnMoveRightKey = new Button(this, rightColPosX, colsPosY +114, 'button', this.moveRightKey, 20, '#ffffff');
+        this.btnMoveRightKey = new Button(this, this.btnMoveLeftKey.image.x, this.btnMoveLeftKey.image.y +38, 'button', this.moveRightKey, 20, '#ffffff');
         this.btnMoveRightKey.image.on('pointerdown', function(pointer){
             this.controls.moveRightKey = "...";
             this.moveRightKeyIsChanging = true;
         }, this);
 
-        this.btnInventoryKey = new Button(this, rightColPosX, colsPosY +152, 'button', this.inventoryKey, 20, '#ffffff');
-        this.btnInventoryKey.image.on('pointerdown', function(pointer){
-            this.controls.inventoryKey = "...";
-            this.inventoryKeyIsChanging = true;
-        }, this);
-
-        this.btnMenuKey = new Button(this, rightColPosX, colsPosY +190, 'button', this.menuKey, 20, '#ffffff');
+        this.btnMenuKey = new Button(this, this.btnMoveRightKey.image.x, this.btnMoveRightKey.image.y +38, 'button', this.menuKey, 20, '#ffffff');
         this.btnMenuKey.image.on('pointerdown', function(pointer){
             this.controls.menuKey = "...";
             this.menuKeyIsChanging = true;
         }, this);
 
+        this.btnActionKey = new Button(this, this.btnMenuKey.image.x, this.btnMenuKey.image.y +38, 'button', this.actionKey, 20, '#ffffff');
+        this.btnActionKey.image.on('pointerdown', function(pointer){
+            this.controls.actionKey = "...";
+            this.actionKeyIsChanging = true;
+        }, this);
+
+        this.btnInventoryKey = new Button(this, this.btnActionKey.image.x, this.btnActionKey.image.y +38, 'button', this.inventoryKey, 20, '#ffffff');
+        this.btnInventoryKey.image.on('pointerdown', function(pointer){
+            this.controls.inventoryKey = "...";
+            this.inventoryKeyIsChanging = true;
+        }, this);
+
+
         let returnTranslation = this.translator.getTranslationFor(this, "ControlsMenuScene","return");
         this.btnReturn = new Button(this, widthCenter, this.game.config.height - 50, 'button', returnTranslation, 20, '#ffffff');
         this.btnReturn.moveAt(this.btnReturn.image.x - this.btnReturn.image.width/2, this.btnReturn.image.y - this.btnReturn.image.height);
         this.btnReturn.image.on('pointerdown', function(pointer){
-            this.managerScene.startScene(this, 'OptionsMenuScene');
+            if(this.controls.moveUpKey !== "..."
+                && this.controls.moveDownKey !== "..."
+            && this.controls.moveLeftKey !== "..."
+            && this.controls.moveRightKey !== "..."
+            && this.controls.menuKey !== "..."
+            && this.controls.actionKey !== "..."
+            && this.controls.inventoryKey !== "..."){
+                this.managerScene.startScene(this, 'OptionsMenuScene');
+            }
         }, this);
 
         this.input.keyboard.on('keydown', function (event) {
@@ -138,13 +158,6 @@ export class ControlsMenuScene extends Phaser.Scene {
                 }
                 this.moveRightKeyIsChanging = false;
             }
-            else if(this.inventoryKeyIsChanging === true){
-                this.controls.inventoryKey = this.searchKey(keycodes, keyCode);
-                if(this.controls.inventoryKey === null){
-                    this.controls.inventoryKey = "I";
-                }
-                this.inventoryKeyIsChanging = false;
-            }
             else if(this.menuKeyIsChanging === true){
                 this.controls.menuKey = this.searchKey(keycodes, keyCode);
                 if(this.controls.menuKey === null){
@@ -152,18 +165,33 @@ export class ControlsMenuScene extends Phaser.Scene {
                 }
                 this.menuKeyIsChanging = false;
             }
+            else if(this.actionKeyIsChanging === true){
+                this.controls.actionKey = this.searchKey(keycodes, keyCode);
+                if(this.controls.actionKey === null){
+                    this.controls.actionKey = "SPACE";
+                }
+                this.menuKeyIsChanging = false;
+            }
+            else if(this.inventoryKeyIsChanging === true){
+                this.controls.inventoryKey = this.searchKey(keycodes, keyCode);
+                if(this.controls.inventoryKey === null){
+                    this.controls.inventoryKey = "I";
+                }
+                this.inventoryKeyIsChanging = false;
+            }
         }, this);
     }
 
     update(time, delta) {
-            this.getControlsKey();
+        this.getControlsKey();
 
-            this.btnMoveUpKey.text.text = this.moveUpKey;
-            this.btnMoveDownKey.text.text = this.moveDownKey;
-            this.btnMoveLeftKey.text.text = this.moveLeftKey;
-            this.btnMoveRightKey.text.text = this.moveRightKey;
-            this.btnInventoryKey.text.text = this.inventoryKey;
-            this.btnMenuKey.text.text = this.menuKey;
+        this.btnMoveUpKey.text.text = this.moveUpKey;
+        this.btnMoveDownKey.text.text = this.moveDownKey;
+        this.btnMoveLeftKey.text.text = this.moveLeftKey;
+        this.btnMoveRightKey.text.text = this.moveRightKey;
+        this.btnMenuKey.text.text = this.menuKey;
+        this.btnActionKey.text.text = this.actionKey;
+        this.btnInventoryKey.text.text = this.inventoryKey;
     }
 
     getControlsKey(){
@@ -171,8 +199,9 @@ export class ControlsMenuScene extends Phaser.Scene {
         this.moveDownKey = this.controls.moveDownKey;
         this.moveLeftKey = this.controls.moveLeftKey;
         this.moveRightKey = this.controls.moveRightKey;
-        this.inventoryKey = this.controls.inventoryKey;
         this.menuKey = this.controls.menuKey;
+        this.actionKey = this.controls.actionKey;
+        this.inventoryKey = this.controls.inventoryKey;
     }
 
     searchKey(keycodes, keyCode){

@@ -4,7 +4,8 @@ export class Controls {
         this.moveDownKey = "S";
         this.moveLeftKey = "Q";
         this.moveRightKey = "D";
-        this.inventoryKey = "I";
         this.menuKey = "ESC";
+        this.actionKey = "SPACE"
+        this.inventoryKey = "I";
     }
 }

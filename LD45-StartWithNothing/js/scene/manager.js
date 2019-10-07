@@ -28,6 +28,8 @@ export class ManagerScene extends Phaser.Scene {
 
         this.load.spritesheet('player', 'asset/player.png', { frameWidth: 128, frameHeight: 128 });
 
+        this.load.image('deadTree', 'asset/deadTree.png');
+
         this.load.json('en-gb', 'translations/en-gb.json');
         this.load.json('fr-fr', 'translations/fr-fr.json');
     }
