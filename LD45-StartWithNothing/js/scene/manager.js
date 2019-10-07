@@ -31,6 +31,9 @@ export class ManagerScene extends Phaser.Scene {
 
         this.load.image('deadTree', 'asset/deadTree.png');
         this.load.image('inventory', 'asset/inventory.png');
+        this.load.image('inventoryCell', 'asset/inventoryCell.png');
+
+        this.load.image('woodCell', 'asset/woodCell.png');
 
         this.load.json('en-gb', 'translations/en-gb.json');
         this.load.json('fr-fr', 'translations/fr-fr.json');

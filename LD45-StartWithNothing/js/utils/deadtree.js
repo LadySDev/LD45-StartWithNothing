@@ -1,3 +1,5 @@
+import {Wood} from "./wood.js";
+
 export class DeadTree extends Phaser.GameObjects.Zone{
     constructor(scene, posX, posY, textureSprite, frame) {
         super(scene, posX + 55 - 1, posY + 100 - 1, textureSprite, frame);
@@ -13,13 +15,23 @@ export class DeadTree extends Phaser.GameObjects.Zone{
 
         this.maxHealth = 10;
         this.currentHealth = 10;
+
+        this.loot = [
+            {object: new Wood(), quantity: 1}
+            ];
+
+        this.canBeDestroyed = false;
     }
 
-    hit(damage){
+    hit(damage, inventory){
         this.currentHealth = this.currentHealth - damage;
 
         if(this.currentHealth <= 0){
+            for(let object in this.loot){
+                inventory.addObject(this.loot[object]);
+            }
             this.sprite.destroy();
+            this.canBeDestroyed = true;
         }
     }
 }

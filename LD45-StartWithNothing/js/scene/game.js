@@ -13,6 +13,8 @@ export class GameScene extends Phaser.Scene {
 
         this.moves = new Moves();
         this.hit = new Hit(5);
+
+        this.destructibleObjects = [];
     }
 
     init(){
@@ -120,11 +122,9 @@ export class GameScene extends Phaser.Scene {
         this.inventory = new Inventory();
 
         // DEAD TREE GENERATION
-        this.deadTree1 = new DeadTree(this, 100, 100, 'deadTree', 0);
+        this.generateDeadTree(this);
 
         this.deadTreeSoundWoodcrack = this.sound.add('woodcrack', { loop: false, volume: 0.10});
-
-        this.physics.add.collider(this.player.sprite, this.deadTree1.sprite);
 
         this.cameras.main.startFollow(this.player.sprite);
         this.cameras.main.followOffset.set(-64, -64);
@@ -144,8 +144,6 @@ export class GameScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-
-        this.physics.add.overlap(this.player.sprite, this.deadTree1, this.deadTreeCollideAction.bind(this));
 
         if(this.moveUpKey.isDown){
             this.player.setCurrentStateObject('walkUp');
@@ -186,12 +184,20 @@ export class GameScene extends Phaser.Scene {
             this.moves.standBy(this.player.sprite);
         }
 
-        if(this.deadTree1 !== null && this.deadTree1.currentHealth === 0){
-            if(!this.deadTreeSoundWoodcrack.isPlaying){
-                this.deadTreeSoundWoodcrack.play();
+        let indexesToRemove = [];
+        for(let i=0;i<this.destructibleObjects.length;i++){
+            if(this.destructibleObjects[i].canBeDestroyed === true){
+                if(!this.deadTreeSoundWoodcrack.isPlaying){
+                    this.deadTreeSoundWoodcrack.play();
+                }
+                this.destructibleObjects[i].destroy();
+                this.destructibleObjects[i] = null;
+                indexesToRemove.push(i);
             }
-            this.deadTree1.destroy();
-            this.deadTree1 = null;
+        }
+
+        for(let i=0;i<indexesToRemove.length;i++){
+            this.destructibleObjects.splice(indexesToRemove[i] - i, 1);
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.menuKey)){
@@ -205,7 +211,20 @@ export class GameScene extends Phaser.Scene {
 
     deadTreeCollideAction(object1, object2){
         if(Phaser.Input.Keyboard.JustDown(this.actionKey)){
-            object2.hit(this.hit.attackPoint);
+            object2.hit(this.hit.attackPoint, this.inventory);
+        }
+    }
+
+    generateDeadTree(scene){
+
+        for(let y=0;y<10;y++){
+            for(let x=0;x<20;x++){
+                let deadTree  = new DeadTree(this, -960 + (100 * x), -560 + (100 * y), 'deadTree', 0);
+                scene.physics.add.collider(this.player.sprite, deadTree.sprite);
+                scene.physics.add.overlap(this.player.sprite, deadTree, this.deadTreeCollideAction.bind(this));
+
+                this.destructibleObjects.push(deadTree);
+            }
         }
     }
 }
