@@ -8,4 +8,6 @@ audio:
 name: 100 Survival Horror Sound FX Wavs
 author: psionicgames
 on itch.io
-piste: action-squelch06.wav
+piste:  action-squelch06.wav
+        object-woodcrack01.wav
+        object-paperbagcrunch01.wav

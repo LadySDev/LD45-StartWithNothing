@@ -1,4 +1,4 @@
-import {Button} from "../utils/button";
+import {Button} from "../utils/button.js";
 
 export class PauseScene  extends Phaser.Scene {
     constructor() {

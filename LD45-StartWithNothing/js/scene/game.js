@@ -1,8 +1,8 @@
 import { Character } from '../utils/character.js';
 import { Moves } from "../utils/moves.js";
 import { DeadTree } from "../utils/deadtree.js";
-import {Hit} from "../utils/hit";
-import {Inventory} from "../utils/inventory";
+import {Hit} from "../utils/hit.js";
+import {Inventory} from "../utils/inventory.js";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -22,6 +22,7 @@ export class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.audio('squelch', 'asset/action-squelch06.wav');
+        this.load.audio('woodcrack', 'asset/object-woodcrack01.wav');
     }
 
     create() {
@@ -121,7 +122,12 @@ export class GameScene extends Phaser.Scene {
         // DEAD TREE GENERATION
         this.deadTree1 = new DeadTree(this, 100, 100, 'deadTree', 0);
 
+        this.deadTreeSoundWoodcrack = this.sound.add('woodcrack', { loop: false, volume: 0.10});
+
         this.physics.add.collider(this.player.sprite, this.deadTree1.sprite);
+
+        this.cameras.main.startFollow(this.player.sprite);
+        this.cameras.main.followOffset.set(-64, -64);
     }
 
     addControlKeys(scene){
@@ -133,6 +139,8 @@ export class GameScene extends Phaser.Scene {
         this.menuKey = scene.input.keyboard.addKey(this.controls.menuKey);
 
         this.actionKey = scene.input.keyboard.addKey(this.controls.actionKey);
+
+        this.inventoryKey = scene.input.keyboard.addKey(this.controls.inventoryKey);
     }
 
     update(time, delta) {
@@ -178,12 +186,20 @@ export class GameScene extends Phaser.Scene {
             this.moves.standBy(this.player.sprite);
         }
 
-        if(this.menuKey.isDown){
+        if(this.deadTree1 !== null && this.deadTree1.currentHealth === 0){
+            if(!this.deadTreeSoundWoodcrack.isPlaying){
+                this.deadTreeSoundWoodcrack.play();
+            }
+            this.deadTree1.destroy();
+            this.deadTree1 = null;
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(this.menuKey)){
             this.managerScene.showPauseScene(this);
         }
 
-        if(this.deadTree1.currentHealth === 0){
-            this.deadTree1.destroy();
+        if(Phaser.Input.Keyboard.JustDown(this.inventoryKey)){
+            this.managerScene.showInventoryScene(this);
         }
     }
 

@@ -26,5 +26,8 @@
         "title": "PAUSE",
         "resume": "Reprendre",
         "quit": "Quitter"
+    },
+    "InventoryScene": {
+        "title": "Inventaire"
     }
 }

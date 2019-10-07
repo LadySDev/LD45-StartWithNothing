@@ -5,6 +5,7 @@ import { OptionsMenuScene }  from "./optionsmenu.js";
 import { ControlsMenuScene }  from "./controlsmenu.js";
 import { GameScene }  from "./game.js";
 import { PauseScene }  from "./pause.js";
+import { InventoryScene }  from "./inventory.js";
 
 export class ManagerScene extends Phaser.Scene {
 
@@ -29,6 +30,7 @@ export class ManagerScene extends Phaser.Scene {
         this.load.spritesheet('player', 'asset/player.png', { frameWidth: 128, frameHeight: 128 });
 
         this.load.image('deadTree', 'asset/deadTree.png');
+        this.load.image('inventory', 'asset/inventory.png');
 
         this.load.json('en-gb', 'translations/en-gb.json');
         this.load.json('fr-fr', 'translations/fr-fr.json');
@@ -40,6 +42,7 @@ export class ManagerScene extends Phaser.Scene {
         this.scene.add('ControlsMenuScene', ControlsMenuScene, false);
         this.scene.add('GameScene', GameScene, false);
         this.scene.add('PauseScene', PauseScene, false);
+        this.scene.add('InventoryScene', InventoryScene, false);
     }
 
     update(time, delta) {
@@ -57,7 +60,7 @@ export class ManagerScene extends Phaser.Scene {
     }
 
     hidePauseScene(scene){
-        scene.scene.run('GameScene');
+        scene.scene.resume('GameScene');
         scene.scene.stop('PauseScene');
     }
 
@@ -65,5 +68,15 @@ export class ManagerScene extends Phaser.Scene {
         scene.scene.start('MainMenuScene');
         scene.scene.stop('GameScene');
         scene.scene.stop('PauseScene');
+    }
+
+    showInventoryScene(scene){
+        scene.scene.launch('InventoryScene');
+        scene.scene.pause('GameScene');
+    }
+
+    hideInventoryScene(scene){
+        scene.scene.resume('GameScene');
+        scene.scene.stop('InventoryScene');
     }
 }
