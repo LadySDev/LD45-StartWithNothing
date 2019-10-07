@@ -2,14 +2,8 @@ export class Character {
     constructor() {
         this.sprite = null;
 
-        this.states = [];
-        this.currentState = null;
-
-        this.animations = [];
-        this.currentAnimation = null;
-
-        this.sounds = [];
-        this.currentSound = null;
+        this.statesObjects = [];
+        this.currentStateObject = null;
 
         this.velocity = 0;
     }
@@ -19,39 +13,29 @@ export class Character {
         this.sprite.setOrigin(0.0, 0.0);
     }
 
-    addState(name, animation, sound) {
-        this.states.push(name);
-
-        if(animation !== null){
-            this.animations.push(animation);
-        }
-
-        if(sound !== null){
-            this.sounds.push(sound);
-        }
+    addStateObject(name, animation, sound) {
+        this.statesObjects.push({state: name, animation: animation, sound: sound});
     }
 
-    getState(name){
-        for(let state in this.states){
-            if(this.states[state] === name){
-                return this.states[state];
+    getStateObject(name){
+        for(let object in this.statesObjects){
+            if(this.statesObjects[object].state === name){
+                return this.statesObjects[object];
             }
         }
         return null;
     }
 
-    setCurrentState(state){
-        if(this.currentState !== state){
-            this.currentState = state;
-            for(let animation in this.animations){
-                if(this.animations[animation].key === state){
-                    this.currentAnimation = this.animations[animation];
-                    break;
-                }
+    setCurrentStateObject(name){
+        if(this.currentStateObject === null || this.currentStateObject.state !== name){
+            this.currentStateObject = this.getStateObject(name);
+
+            if(this.currentStateObject.animation !== null && !this.currentStateObject.animation.isPlaying){
+                this.sprite.play(this.currentStateObject.animation);
             }
 
-            if(this.currentAnimation !== null && !this.currentAnimation.isPlaying){
-                this.sprite.play(this.currentAnimation);
+            if(this.currentStateObject.sound !== null && !this.currentStateObject.sound.isPlaying){
+                this.currentStateObject.sound.play();
             }
         }
     }

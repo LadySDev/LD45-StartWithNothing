@@ -32,7 +32,7 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.player.addState('idleDown', playerAnimIdleDown, null);
+        this.player.addStateObject('idleDown', playerAnimIdleDown, null);
 
         // PLAYER ANIMATION & STATE WALK DOWN
         let playerAnimWalkDown = this.anims.create({
@@ -42,9 +42,9 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         });
 
-        let playerSoundSquelch = this.sound.add('squelch', { loop: true});
+        let playerSoundWalk = this.sound.add('squelch', { loop: true, volume: 0.10});
 
-        this.player.addState('walkDown', playerAnimWalkDown, playerSoundSquelch);
+        this.player.addStateObject('walkDown', playerAnimWalkDown, playerSoundWalk);
 
         // PLAYER ANIMATION & STATE IDLE UP
         let playerAnimIdleUp = this.anims.create({
@@ -54,7 +54,7 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.player.addState('idleUp', playerAnimIdleUp, null);
+        this.player.addStateObject('idleUp', playerAnimIdleUp, null);
 
         // PLAYER ANIMATION & STATE WALK UP
         let playerAnimWalkUp = this.anims.create({
@@ -64,7 +64,7 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.player.addState('walkUp', playerAnimWalkUp, null);
+        this.player.addStateObject('walkUp', playerAnimWalkUp, playerSoundWalk);
 
         // PLAYER ANIMATION & STATE IDLE LEFT
         let playerAnimIdleLeft = this.anims.create({
@@ -74,7 +74,7 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.player.addState('idleLeft', playerAnimIdleLeft, null);
+        this.player.addStateObject('idleLeft', playerAnimIdleLeft, null);
 
         // PLAYER ANIMATION & STATE WALK LEFT
         let playerAnimWalkLeft = this.anims.create({
@@ -84,7 +84,7 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.player.addState('walkLeft', playerAnimWalkLeft, null);
+        this.player.addStateObject('walkLeft', playerAnimWalkLeft, playerSoundWalk);
 
         // PLAYER ANIMATION & STATE IDLE RIGHT
         let playerAnimIdleRight = this.anims.create({
@@ -94,7 +94,7 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.player.addState('idleRight', playerAnimIdleRight, null);
+        this.player.addStateObject('idleRight', playerAnimIdleRight, null);
 
         // PLAYER ANIMATION & STATE WALK RIGHT
         let playerAnimWalkRight = this.anims.create({
@@ -104,10 +104,10 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.player.addState('walkRight', playerAnimWalkRight, null);
+        this.player.addStateObject('walkRight', playerAnimWalkRight, playerSoundWalk);
 
         // SET CURRENT STATE
-        this.player.setCurrentState(this.player.getState('idleDown'));
+        this.player.setCurrentStateObject('idleDown');
 
         this.addControlKeys(this);
     }
@@ -122,42 +122,39 @@ export class GameScene extends Phaser.Scene {
     update(time, delta) {
 
         if(this.moveUpKey.isDown){
-            this.player.setCurrentState(this.player.getState('walkUp'));
+            this.player.setCurrentStateObject('walkUp');
             this.moves.moveUp(this.player.sprite, this.player.velocity);
         }
         else if(this.moveDownKey.isDown){
-            this.player.setCurrentState(this.player.getState('walkDown'));
+            this.player.setCurrentStateObject('walkDown');
             this.moves.moveDown(this.player.sprite, this.player.velocity);
-            if(!this.player.sounds[0].isPlaying){
-                this.player.sounds[0].play();
-            }
         }
         else if(this.moveLeftKey.isDown){
-            this.player.setCurrentState(this.player.getState('walkLeft'));
+            this.player.setCurrentStateObject('walkLeft');
             this.moves.moveLeft(this.player.sprite, this.player.velocity);
         }
         else if(this.moveRightKey.isDown){
-            this.player.setCurrentState(this.player.getState('walkRight'));
+            this.player.setCurrentStateObject('walkRight');
             this.moves.moveRight(this.player.sprite, this.player.velocity);
         }
         else{
-            let currentAnimation = this.player.currentAnimation;
+            let currentAnimation = this.player.currentStateObject.animation;
+
+            if(this.player.currentStateObject.sound !== null && this.player.currentStateObject.sound.isPlaying){
+                this.player.currentStateObject.sound.stop();
+            }
 
             if(currentAnimation.key === 'walkUp'){
-                this.player.setCurrentState(this.player.getState('idleUp'));
+                this.player.setCurrentStateObject('idleUp');
             }
             else if(currentAnimation.key === 'walkDown'){
-                this.player.setCurrentState(this.player.getState('idleDown'));
+                this.player.setCurrentStateObject('idleDown');
             }
             else if(currentAnimation.key === 'walkLeft'){
-                this.player.setCurrentState(this.player.getState('idleLeft'));
+                this.player.setCurrentStateObject('idleLeft');
             }
             else if(currentAnimation.key === 'walkRight'){
-                this.player.setCurrentState(this.player.getState('idleRight'));
-            }
-
-            if(this.player.sounds[0].isPlaying){
-                this.player.sounds[0].stop();
+                this.player.setCurrentStateObject('idleRight');
             }
 
             this.moves.standBy(this.player.sprite);
